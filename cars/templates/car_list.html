@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car List</title>
+</head>
+<body>
+    <h1>Available Cars</h1>
+    <ul>
+        {% for car in cars %}
+            <li>
+                <a href="{% url 'car_detail' car.id %}">
+                    <img src="{{ car.image.url }}" alt="{{ car.name }}" width="150">
+                    <p>{{ car.name }} - {{ car.color }} - {{ car.fuel_type }} - {{ car.transmission }}</p>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

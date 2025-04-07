@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Trips</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.6);
+            z-index: -1;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(to right, #f8e1d9, #f5f0e1);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .brand {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #e07a5f;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-btn {
+            font-size: 2rem;
+            color: #e07a5f;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .toggle-btn:hover {
+            color: #3d405b;
+        }
+
+        .user-profile {
+            position: relative;
+            display: flex;
+            align-items: center;
+            color: #3d405b;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .user-profile i {
+            margin-right: 8px;
+            color: #e07a5f;
+            font-size: 1.5rem;
+        }
+
+        .navbar a {
+            color: #e07a5f;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #3d405b;
+        }
+
+        .main-content {
+            margin-top: 100px;
+            padding: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e07a5f;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #e07a5f;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: #f5f0e1;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        ul li p {
+            font-size: 1.1rem;
+            color: #3d405b;
+            margin-bottom: 10px;
+        }
+
+        ul li p strong {
+            color: #e07a5f;
+        }
+
+        footer {
+            padding: 20px;
+            background: linear-gradient(to right, #f8e1d9, #f5f0e1);
+            color: #3d405b;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-top: 1px solid #e07a5f;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background: #333;
+            transition: 0.3s;
+            z-index: 999;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 20px;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .sidebar ul li:hover {
+            background: #444;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="toggle-btn" onclick="toggleSidebar()">☰</div>
+        <div class="brand">GoRentalCars</div>
+        <div class="navbar-links">
+            <a href="/">Home</a>
+            <div class="profile-details">
+                <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Member Since:</strong> {{ user.date_joined|date:"F Y" }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+
+        <ul>
+            <li><a href="#about"><img src="https://cdn-icons-png.flaticon.com/24/2089/2089733.png" class="icon" alt="About Icon">About</a></li>
+            <li><a href="#services"><img src="https://cdn-icons-png.flaticon.com/24/3064/3064155.png" class="icon" alt="Services Icon">Services</a></li>
+            <li><a href="#contact"><img src="https://cdn-icons-png.flaticon.com/24/5988/5988248.png" class="icon" alt="Contact Icon">Contact</a></li>
+            <li><a href="#mytrips"><img src="https://cdn-icons-png.flaticon.com/24/2972/2972196.png" class="icon" alt="My Trips Icon">My Trips</a></li>
+            <li><a href="#terms"><img src="https://cdn-icons-png.flaticon.com/24/4472/4472670.png" class="icon" alt="Terms Icon">Terms and Conditions</a></li>
+            <li><a href="#policy"><img src="https://cdn-icons-png.flaticon.com/24/10822/10822530.png" class="icon" alt="Policy Icon">Policy</a></li>
+            <li><a href="/logout"><img src="https://cdn-icons-png.flaticon.com/24/1286/1286853.png" class="icon" alt="Logout Icon">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <h1>My Trips</h1>
+        <ul>
+            {% for booking in bookings %}
+                <li>
+                    <p><strong>Car:</strong> {{ booking.car.name }}</p>
+                    <p><strong>Pickup:</strong> {{ booking.pickup_date }}</p>
+                    <p><strong>Dropoff:</strong> {{ booking.dropoff_date }}</p>
+                    <p><strong>Amount Paid:</strong> ₹{{ booking.total_amount }}</p>
+                    <p><strong>Status:</strong> {% if booking.payment_status %} Paid {% else %} Pending {% endif %}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 GoRentalCars. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
+
+    <div class="main-content">
+        <h2>Book a Car</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Pickup Date & Time:</label>
+            <input type="datetime-local" name="pickup_date" required>
+
+            <label>Drop-off Date & Time:</label>
+            <input type="datetime-local" name="dropoff_date" required>
+
+            <label>Booking Type:</label>
+            <select name="booking_type" required>
+                <option value="Hourly">Hourly</option>
+                <option value="Daily">Daily</option>
+            </select>
+
+            <label>Upload ID/License:</label>
+            <input type="file" name="document" required>
+
+            <label>
+                <input type="checkbox" name="agree_terms" required> I agree to the terms and conditions
+            </label>
+
+            <button type="submit">Submit Booking</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 GoRentalCars. All Rights Reserved.</p>
+    </footer>

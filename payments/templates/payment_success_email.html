@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+</head>
+<body>
+    <h1>Dear {{ username }},</h1>
+    <p>Your payment for Booking #{{ booking_id }} is successful.</p>
+
+    <h2>Booking Details:</h2>
+    <p><strong>Car:</strong> {{ car_name }}</p>
+    {% if car_image_url %}
+        <p><img src="{{ car_image_url }}" alt="Car Image" style="max-width: 300px;"></p>
+    {% endif %}
+    <p><strong>Pickup Date:</strong> {{ pickup_date }}</p>
+    <p><strong>Dropoff Date:</strong> {{ dropoff_date }}</p>
+    <p><strong>Amount Paid:</strong> ₹{{ total_amount }}</p>
+
+    {% if total_hours %}
+        <p><strong>Total Hours:</strong> {{ total_hours }} hours</p>
+    {% endif %}
+
+    {% if total_days %}
+        <p><strong>Total Days:</strong> {{ total_days }} days</p>
+    {% endif %}
+
+    <p>Thank you for choosing GoRentalCars!</p>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ car.name }} Details</title>
+</head>
+<body>
+    <h1>{{ car.name }}</h1>
+    <img src="{{ car.image.url }}" alt="{{ car.name }}" width="300">
+    <p>Color: {{ car.color }}</p>
+    <p>Fuel Type: {{ car.fuel_type }}</p>
+    <p>Transmission: {{ car.transmission }}</p>
+    <p>Seating Capacity: {{ car.seating_capacity }}</p>
+    <p>Price Per Hour: {{ car.price_per_hour }}</p>
+    <p>Price Per Day: {{ car.price_per_day }}</p>
+</body>
+</html>
