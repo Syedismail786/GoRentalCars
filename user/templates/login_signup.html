@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoRentalCars - Login / Signup</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(to bottom, #141e30, #243b55);
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            width: 100%;
+            background-color: #1d1f36;
+            padding: 20px 40px;
+            color: #fff;
+            font-size: 24px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        /* Form Card Styling */
+        .card {
+            background: #1d1f36;
+            width: 350px;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease;
+            margin: auto;
+        }
+
+        .card h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: #fff;
+        }
+
+        .card input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            background: #eee;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .card input:focus {
+            outline: none;
+            background: #ddd;
+        }
+
+        .card button {
+            width: 100%;
+            padding: 12px;
+            background-color: #6a11cb;
+            background-image: linear-gradient(to right, #2575fc, #6a11cb);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .card button:hover {
+            transform: scale(1.05);
+        }
+
+        .bottom-switch {
+            background: #fff;
+            color: #1d1f36;
+            border-top-left-radius: 50% 20%;
+            border-top-right-radius: 50% 20%;
+            padding: 25px 0;
+            text-align: center;
+            font-weight: 600;
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .bottom-switch:hover {
+            background: #f0f0f0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        GoRentalCars
+    </div>
+
+    <!-- Signup Form Card -->
+    {% if form_type == 'signup' %}
+    <div class="card">
+        <h2>Sign Up</h2>
+        <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="User name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password1" placeholder="Password" required>
+            <input type="password" name="password2" placeholder="Confirm Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <div class="bottom-switch" onclick="toggleForm('login')">Login</div>
+    </div>
+    {% elif form_type == 'login' %}
+
+    <!-- Login Form Card -->
+    <div class="card">
+        <h2>Login</h2>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+        <div class="bottom-switch" onclick="toggleForm('signup')">Sign Up</div>
+    </div>
+    {% endif %}
+
+    <script>
+        // Toggle between Login and Signup forms
+        function toggleForm(formType) {
+            if (formType === 'signup') {
+                window.location.href = "{% url 'signup' %}";
+            } else {
+                window.location.href = "{% url 'login' %}";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

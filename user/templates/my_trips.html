@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Trips | GoRentalCars</title>
+    <style>
+        /* General Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, rgba(78, 84, 200, 0.7), rgba(143, 148, 251, 0.7)),
+                        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')
+                        no-repeat center center / cover;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Navbar Styles */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(78, 84, 200, 0.9);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-btn {
+            font-size: 28px;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            color: #ddd;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            position: fixed;
+            top: 60px;
+            left: -250px;
+            width: 250px;
+            height: 100vh;
+            background: rgba(78, 84, 200, 0.95);
+            padding-top: 20px;
+            transition: left 0.4s ease-in-out;
+            list-style: none;
+            z-index: 999;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .nav-menu ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .nav-menu ul li {
+            margin: 25px 0;
+            text-align: center;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu.active ul li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .nav-menu ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu ul li a:hover {
+            color: #ddd;
+        }
+
+        /* Main Content */
+        main {
+            margin: 100px auto 100px;
+            width: 80%;
+            max-width: 1000px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        h1 {
+            font-size: 28px;
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .trip-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .trip-item {
+            background-color: #f9f9f9;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            color: #333;
+        }
+
+        .trip-item strong {
+            color: #4e54c8;
+        }
+
+        .no-trips {
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .no-trips a {
+            color: #4e54c8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Footer Styles */
+        footer {
+            width: 100%;
+            background: rgba(78, 84, 200, 0.9);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        footer p {
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .social-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ddd;
+            transform: scale(1.2);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px;
+            }
+
+            main {
+                width: 95%;
+                margin: 90px auto;
+                padding: 25px;
+            }
+
+            .trip-item {
+                font-size: 14px;
+            }
+
+            .nav-menu {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header>
+        <div class="logo">GoRentalCars</div>
+        <div class="toggle-btn" onclick="toggleMenu()">&#9776;</div>
+    </header>
+
+    <!-- Toggle Menu -->
+    <div class="nav-menu" id="navMenu">
+        <ul>
+            <li><a href="/about_us"><img src="https://cdn-icons-png.flaticon.com/24/2089/2089733.png" class="icon" alt="About Icon">About</a></li>
+            <li><a href="/services"><img src="https://cdn-icons-png.flaticon.com/24/3064/3064155.png" class="icon" alt="Services Icon">Services</a></li>
+            <li><a href="/contact"><img src="https://cdn-icons-png.flaticon.com/24/5988/5988248.png" class="icon" alt="Contact Icon">Contact</a></li>
+            <li><a href="/my_trips"><img src="https://cdn-icons-png.flaticon.com/24/2972/2972196.png" class="icon" alt="My Trips Icon">My Trips</a></li>
+            <li><a href="/terms_and_conditions"><img src="https://cdn-icons-png.flaticon.com/24/4472/4472670.png" class="icon" alt="Terms Icon">Terms and Conditions</a></li>
+            <li><a href="/privacy_policy"><img src="https://cdn-icons-png.flaticon.com/24/10822/10822530.png" class="icon" alt="Policy Icon">Policy</a></li>
+            <li><a href="/logout"><img src="https://cdn-icons-png.flaticon.com/24/1286/1286853.png" class="icon" alt="Logout Icon">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <h1>My Trips</h1>
+
+        {% if trips %}
+        <ul class="trip-list">
+            {% for trip in trips %}
+            <li class="trip-item">
+                <strong>Booking ID:</strong> {{ trip.id }}<br>
+                <strong>Car:</strong> {{ trip.car.name }}<br>
+                <strong>Pick-up Date:</strong> {{ trip.pickup_date }}<br>
+                <strong>Total Hours:</strong> {{ trip.total_hours }} Hours<br>
+                <strong>Total Amount:</strong> ₹{{ trip.total_amount }}<br>
+                <strong>Payment Status:</strong> {{ trip.payment_status|yesno:"Paid,Pending" }}<br>
+                <a href="{% url 'trip_details' trip.id %}">View Details</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div class="no-trips">
+            <p>You have no trips booked. <a href="/services">Browse available cars</a>.</p>
+        </div>
+        {% endif %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 GoRentalCars. All Rights Reserved.</p>
+        <div class="social-links">
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>

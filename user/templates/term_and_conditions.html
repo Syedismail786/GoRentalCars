@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions | GoRentalCars</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, rgba(78, 84, 200, 0.7), rgba(143, 148, 251, 0.7)),
+                url('https://images.unsplash.com/photo-1605559424843-cf7c6c38976b?auto=format&fit=crop&w=1400&q=80') no-repeat center center / cover;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 60px;
+            overflow-x: hidden;
+        }
+
+        /* Navbar Styles */
+        header {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            background: rgba(78, 84, 200, 0.9);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .toggle-btn {
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Toggle Bar Styles */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-menu li {
+            margin: 0;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #ddd;
+        }
+
+        /* Main Content Styles */
+        main {
+            width: 100%;
+            padding: 40px 20px;
+            text-align: center;
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .terms-conditions h1 {
+            font-size: 38px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .terms-conditions p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #ddd;
+        }
+
+        .terms-conditions h2 {
+            font-size: 24px;
+            margin-top: 30px;
+            font-weight: 600;
+            color: #ff8c00;
+        }
+
+        .terms-conditions ul {
+            list-style: none;
+            padding-left: 0;
+            font-size: 18px;
+            color: #ddd;
+        }
+
+        .terms-conditions li {
+            margin: 20px 0;
+        }
+
+        /* Footer Styles */
+        footer {
+            width: 100%;
+            background: rgba(78, 84, 200, 0.9);
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            bottom: 0;
+        }
+
+        footer p {
+            color: #fff;
+            font-size: 14px;
+        }
+
+        footer .social-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 20px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        footer .social-links a:hover {
+            color: #ff8c00;
+            transform: scale(1.2);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .toggle-btn {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+                padding: 15px 0;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(78, 84, 200, 0.9);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu ul {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            main {
+                padding-top: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <div class="logo">GoRentalCars</div>
+            <div class="toggle-btn" onclick="toggleMenu()">&#9776;</div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about-us">About Us</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/terms-and-conditions">Terms and Conditions</a></li>
+                    <li><a href="/privacy-policy">Privacy Policy</a></li>
+                    <li><a href="/my_trips">My Trips</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="terms-conditions">
+            <h1>Terms and Conditions</h1>
+            <p>Welcome to GoRentalCars! By using our services, you agree to the following terms and conditions. Please read them carefully.</p>
+            <h2>1. General Information</h2>
+            <p>GoRentalCars provides car rental services to individuals aged 21 and over with a valid driver’s license. The rental period starts from the time of pick-up and ends at the time of return.</p>
+            <h2>2. Rental Agreement</h2>
+            <p>All rentals are subject to a signed rental agreement, which outlines the responsibilities of both the renter and GoRentalCars.</p>
+            <h2>3. Payment and Cancellations</h2>
+            <p>Payment is due at the time of booking. Cancellations must be made at least 24 hours before the scheduled pick-up time to receive a full refund.</p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 GoRentalCars. All Rights Reserved.</p>
+        <div class="social-links">
+            <a href="#" class="facebook">Facebook</a>
+            <a href="#" class="twitter">Twitter</a>
+            <a href="#" class="instagram">Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+    </script>
+
+</body>
+
+</html>
